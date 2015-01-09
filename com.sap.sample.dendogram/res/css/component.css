@@ -7,18 +7,6 @@
   font: 10px sans-serif;
 }
 
-.node circle {
-  fill: #fff;
-  stroke: black;
-  stroke-width: 1.5px;
-}
-
-.leaf circle {
-  fill: steelblue;
-  stroke: black;
-  stroke-width: 1.5px;
-}
-
 .node text, .leaf text {
   font: 10px sans-serif;
 }
@@ -27,4 +15,35 @@
   fill: none;
   stroke: black;
   stroke-width: 1.5px;
+}
+
+.container {
+  fill: #ffffff;
+  stroke: #000000;
+}
+
+.traffic {
+	fill: #27e833;
+	stroke: #000000;
+    stroke-width: 1px;
+}
+
+.drivers {
+	fill: #83D6FF;
+	stroke: #000000;
+}
+
+.kpi1 {
+	fill: #375A6B;
+	stroke: #000000;
+}
+
+.kpi2 {
+	fill: #5C96B2;
+	stroke: #000000;        			
+}
+
+.middim {
+	fill: #C1EAFF;
+	stroke: #000000;      			
 }

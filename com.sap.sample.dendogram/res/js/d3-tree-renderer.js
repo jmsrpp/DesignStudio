@@ -54,8 +54,7 @@
         			.attr("y", "-37.5px")
         			.attr("width", "250px")
         			.attr("height", "75px")
-        			.attr("stroke", "#000000")
-        			.attr("fill", "#ffffff")
+        			.attr("class", "container")
         			.attr("id", "svg_container");
         
         			nodeEnter.append("rect")
@@ -65,8 +64,7 @@
         			.attr("y", "-37.5px")
         			.attr("width", "25px")
         			.attr("height", "25px")
-        			.style("stroke", "#000000")
-        			.style("fill", "#ffffff")
+        			.attr("class", "container")
         			.attr("id", "svg_trafficlight");
         
         			nodeEnter.append("circle")
@@ -75,9 +73,7 @@
         				else {return d.children ? -252 : 12;} })
         			.attr("cy", "-25px")
         			.attr("r", "12px")
-        			.style("stroke", "#000000")
-        			.style("stroke-width", "1")
-        			.style("fill", "#27e833")
+        			.attr("class", "traffic")
         			.attr("id", "svg_traffic_circle");
                        
         			nodeEnter.append("rect")
@@ -87,8 +83,7 @@
         			.attr("y", "-37.5px")
         			.attr("width", "125px")
         			.attr("height", "25px")
-        			.attr("stroke", "#000000")
-        			.attr("fill", "#83D6FF")
+        			.attr("class", "drivers")
         			.attr("id", "svg_topdriver1");
        
         			nodeEnter.append("rect")
@@ -98,8 +93,7 @@
         			.attr("y", "-37.5px")
         			.attr("width", "42.5px")
         			.attr("height", "25px")
-        			.attr("stroke", "#000000")
-        			.attr("fill", "#375A6B")
+        			.attr("class", "kpi1")
         			.attr("id", "svg_topkpi1");
         
         			nodeEnter.append("rect")
@@ -109,8 +103,7 @@
         			.attr("y", "-37.5px")
         			.attr("width", "42.5px")
         			.attr("height", "25px")
-        			.attr("stroke", "#000000")
-        			.attr("fill", "#5C96B2")
+        			.attr("class", "kpi2")
         			.attr("id", "svg_topkpi2");
         
         			nodeEnter.append("rect")
@@ -120,8 +113,7 @@
         			.attr("y", "-37.5px")
         			.attr("width", "15px")
         			.attr("height", "75px")
-        			.attr("stroke", "#000000")
-       				.attr("fill", "#ffffff")
+        			.attr("class", "container")
        				.attr("id", "svg_pluspanel");
         
         			nodeEnter.append("text")
@@ -146,8 +138,7 @@
         			.attr("y", "-12.5px")
         			.attr("width", "234.5px")
         			.attr("height", "25px")
-        			.attr("stroke", "#000000")
-        			.attr("fill", "#C1EAFF")
+        			.attr("class", "middim")
         			.attr("id", "svg_middim");
         
         			nodeEnter.append("rect")
@@ -157,8 +148,7 @@
         			.attr("y", "12.5px")
         			.attr("width", "150px")
         			.attr("height", "25px")
-        			.attr("stroke", "#000000")
-        			.attr("fill", "#83D6FF")
+        			.attr("class", "drivers")
         			.attr("id", "svg_botdriver2");
         
         			nodeEnter.append("rect")
@@ -168,8 +158,7 @@
         			.attr("y", "12.5px")
         			.attr("width", "42.5px")
         			.attr("height", "25px")
-        			.attr("stroke", "#000000")
-        			.attr("fill", "#375A6B")
+        			.attr("class", "kpi1")
         			.attr("id", "svg_botkpi1");
         
         			nodeEnter.append("rect")
@@ -179,10 +168,8 @@
         			.attr("y", "12.5px")
         			.attr("width", "42.5px")
         			.attr("height", "25px")
-        			.attr("stroke", "#000000")
-        			.attr("fill", "#5C96B2")
+        			.attr("class", "kpi2")
         			.attr("id", "svg_botkpi2");
-        
 
         			nodeEnter.append("text")
         			.attr("dx", function(d) { 
