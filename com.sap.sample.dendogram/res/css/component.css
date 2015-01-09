@@ -1,0 +1,30 @@
+.dendogram {
+
+}
+
+.node {
+  cursor: pointer;
+  font: 10px sans-serif;
+}
+
+.node circle {
+  fill: #fff;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+.leaf circle {
+  fill: steelblue;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+.node text, .leaf text {
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+}

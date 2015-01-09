@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdkExtension
+	xmlns="http://www.sap.com/bi/zen/sdk"
+	id="com.sap.sample.dendogram"
+	title="Design Studio SDK Extension Sample Dendogram"
+	version="15.0"
+	vendor="SAP">
+	<component
+		id="Dendogram"
+		title="Int Elbow Dendogram"
+		icon="res/icon.png"
+		handlerType="div"
+		databound="true"> <!-- This is set so that a data source can be assigned -->
+		<jsInclude>res/js/d3.js</jsInclude>
+		<jsInclude>res/js/metadata-tree-converter.js</jsInclude>
+		<jsInclude>res/js/d3-tree-renderer.js</jsInclude>
+		<jsInclude>res/js/component.js</jsInclude>
+		<cssInclude>res/css/component.css</cssInclude>
+		<!-- This implicitly sets a metadata property -->
+		<property
+			id="dataResultCellSet"
+			title="ResultCellSet"
+			type="ResultCellSet"
+			tooltip="Holds a reference to a result cell set"
+			visible="false"
+			group="DataBinding"/>
+		<initialization>
+			<defaultValue property="WIDTH">400</defaultValue>
+			<defaultValue property="HEIGHT">400</defaultValue>
+		</initialization>
+	</component>
+</sdkExtension>

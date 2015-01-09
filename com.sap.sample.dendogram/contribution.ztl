@@ -1,0 +1,3 @@
+class com.sap.sample.dendogram.Dendogram extends Component {
+
+}
