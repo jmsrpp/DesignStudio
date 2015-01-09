@@ -46,22 +46,30 @@
         .attr("d", elbow);  
 
         // Declare the nodes
-        var node = svg.selectAll("g.node")
+       /* var node = svg.selectAll("g.node")
         .data(nodes)
         .enter().append("g")
         .attr("class", "node")
         .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; })
         .on("click", click);
+        */
+        
         
         // Normalize for fixed-depth.
         nodes.forEach(function(d) { d.y = d.depth * 180; });
 
         // Update the nodes…
-        //var node = svg.selectAll("g.node")
-        //    .data(nodes, function(d) { return d.id || (d.id = ++i); });
+        var node = svg.selectAll("g.node")
+            .data(nodes, function(d) { return d.id || (d.id = ++i); });
+        
+     // Enter any new nodes at the parent's previous position.
+        var nodeEnter = node.enter().append("g")
+            .attr("class", "node")
+            .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+            .on("click", click);
 
        // Draw the KPI tile using SVG shapes
-        node.append("rect")
+        nodeEnter.append("rect")
         .attr("x", function(d) { 
         	if (!d.level) {return -256}
         	else {return d.children ? -264 : 0;} })
@@ -72,7 +80,7 @@
         .attr("fill", "#ffffff")
         .attr("id", "svg_container");
         
-        node.append("rect")
+        nodeEnter.append("rect")
     	.attr("x", function(d) { 
         	if (!d.level) {return -256}
         	else {return d.children ? -264 : 0;} })
@@ -83,7 +91,7 @@
     	.style("fill", "#ffffff")
     	.attr("id", "svg_trafficlight");
         
-        node.append("circle")
+        nodeEnter.append("circle")
     	.attr("cx", function(d) { 
         	if (!d.level) {return -243.5}
         	else {return d.children ? -252 : 12;} })
@@ -94,7 +102,7 @@
     	.style("fill", "#27e833")
     	.attr("id", "svg_traffic_circle");
                        
-        node.append("rect")
+        nodeEnter.append("rect")
     	.attr("x", function(d) { 
     		if (!d.level) {return -231}
     		else {return d.children ? -239 : 25; } })
@@ -105,7 +113,7 @@
     	.attr("fill", "#83D6FF")
     	.attr("id", "svg_topdriver1");
        
-        node.append("rect")
+        nodeEnter.append("rect")
         .attr("x", function(d) { 
     		if (!d.level) {return -106}
     		else {return d.children ? -114 : 150; } })
@@ -116,7 +124,7 @@
     	.attr("fill", "#375A6B")
     	.attr("id", "svg_topkpi1");
         
-        node.append("rect")
+        nodeEnter.append("rect")
         .attr("x", function(d) { 
     		if (!d.level) {return -63.5}
     		else {return d.children ? -71.5 : 192.5; } })
@@ -127,7 +135,7 @@
     	.attr("fill", "#5C96B2")
     	.attr("id", "svg_topkpi2");
         
-        node.append("rect")
+        nodeEnter.append("rect")
         .attr("x", function(d) { 
     		if (!d.level) {return -21}
     		else {return d.children ? -29 : 235; } })
@@ -138,7 +146,7 @@
     	.attr("fill", "#ffffff")
    		.attr("id", "svg_pluspanel");
         
-        node.append("text")
+        nodeEnter.append("text")
     	.attr("dx", function(d) { 
     		if (!d.level) {return -14.5}
     		else {return d.children ? -23 : 242;} })
@@ -154,7 +162,7 @@
         .attr("id", "plusminus");
         
                      
-        node.append("rect")
+        nodeEnter.append("rect")
         .attr("x", function(d) { 
     		if (!d.level) {return -256}
     		else {return d.children ? -264 : 0; } })
@@ -165,7 +173,7 @@
     	.attr("fill", "#C1EAFF")
     	.attr("id", "svg_middim");
         
-        node.append("rect")
+        nodeEnter.append("rect")
         .attr("x", function(d) { 
     		if (!d.level) {return -256}
     		else {return d.children ? -264 : 0; } })
@@ -176,7 +184,7 @@
     	.attr("fill", "#83D6FF")
     	.attr("id", "svg_botdriver2");
         
-        node.append("rect")
+        nodeEnter.append("rect")
         .attr("x", function(d) { 
     		if (!d.level) {return -106}
     		else {return d.children ? -114 : 150; } })
@@ -187,7 +195,7 @@
     	.attr("fill", "#375A6B")
     	.attr("id", "svg_botkpi1");
         
-        node.append("rect")
+        nodeEnter.append("rect")
         .attr("x", function(d) { 
     		if (!d.level) {return -63.5}
     		else {return d.children ? -71.5 : 192.5; } })
@@ -199,7 +207,7 @@
     	.attr("id", "svg_botkpi2");
         
 
-        node.append("text")
+        nodeEnter.append("text")
         	.attr("dx", function(d) { 
         		if (!d.level) {return -130}
         		else {return d.children ? -130 : 117.5;} })
@@ -207,8 +215,58 @@
         	//.attr("text-anchor", function(d) { return d.children ? "end" : "start"; })
         	.attr("text-anchor", "middle")
         	.text(function(d) { return d.name; });
-                
-          	  
+        
+     // Transition nodes to their new position.
+        var nodeUpdate = node.transition()
+            .duration(duration)
+            .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+        
+        nodeUpdate.select("circle");
+        nodeUpdate.select("rect");
+        nodeUpdate.select("text");
+        
+     // Transition exiting nodes to the parent's new position.
+        var nodeExit = node.exit().transition()
+            .duration(duration)
+            .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+            .remove();
+        
+        nodeExit.select("circle");
+        nodeExit.select("rect");
+        nodeExit.select("text");
+        
+     // Update the links…
+        var link = svg.selectAll("path.link")
+            .data(links, function(d) { return d.target.id; });
+
+        // Enter any new links at the parent's previous position.
+        link.enter().insert("path", "g")
+            .attr("class", "link")
+            .attr("d", function(d) {
+              var o = {x: source.x0, y: source.y0};
+              return elbow({source: o, target: o});
+            });
+
+        // Transition links to their new position.
+        link.transition()
+            .duration(duration)
+            .attr("d", elbow);
+
+        // Transition exiting nodes to the parent's new position.
+        link.exit().transition()
+            .duration(duration)
+            .attr("d", function(d) {
+              var o = {x: source.x, y: source.y};
+              return elbow({source: o, target: o});
+            })
+            .remove();
+
+        // Stash the old positions for transition.
+        nodes.forEach(function(d) {
+          d.x0 = d.x;
+          d.y0 = d.y;
+        });    
+          	 
             }
           
           // Toggle children on click.
