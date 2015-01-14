@@ -1,9 +1,12 @@
 /*global sap */
 sap.designstudio.sdk.Component.subclass("com.sap.sample.dendogram.Dendogram", function() {
-
-    "use strict";
+	
+	var that = this;
+	"use strict";
 
     var savedMetadata = null,
+    	savedData = null,
+    	selectedNode = null,
         metadataToTreeConverter,
         treeRenderer;
 
@@ -21,10 +24,28 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.dendogram.Dendogram", fu
             return this;
         }
     };
+    
+    this.data = function(value) {
+		if (value === undefined) {
+			return savedData;
+		} else {
+			savedData = value;
+			return this;
+		}
+	};
+	
+    this.selectedNode = function(value) {
+    	if (value === undefined) {
+    		return selectedNode;
+    	} else {
+    		selectedNode = value;
+    		return this;
+    	}
+    };
 
     this.afterUpdate = function() {
         var root = metadataToTreeConverter.convert(savedMetadata);
-        treeRenderer.render(root, this.$());
-    };
+        treeRenderer.render(root, this.$(), that);
+    };    
 
 });

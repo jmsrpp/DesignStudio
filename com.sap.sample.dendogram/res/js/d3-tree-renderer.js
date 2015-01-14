@@ -1,10 +1,10 @@
 /*global d3, sap */
 (function(sap, undefined) {
-
+	
     "use strict";
 
     function D3DendogramRenderer() {}
-
+           
     // Used the tutorial found here: http://www.d3noob.org/2014/01/tree-diagrams-in-d3js_11.html
     // JR - expanded using the collapsible tree: http://bl.ocks.org/mbostock/4339083
     // JR - adopted for "elbow" dendogram based on: http://bl.ocks.org/mbostock/2429963
@@ -14,8 +14,9 @@
      * { "name": "Some Name": children: [...] }
      * @param $container The container into which the tree will be rendered. 
      */
-    D3DendogramRenderer.prototype.render = function(root, $container) {
-        var i = 0,
+    D3DendogramRenderer.prototype.render = function(root, $container, $that) {
+            	   	
+    	var i = 0,
         	cluster,
         	duration=750,
             svg;
@@ -35,16 +36,25 @@
              // Compute the cluster layout.
         		var nodes = cluster.nodes(root).reverse(),
         		links = cluster.links(nodes);
+        		
+       		// Normalize for fixed-depth.
+        		nodes.forEach(function(d) { 
+        			d.y = d.depth * 280; 
+        			d.id = d.key; // set the ID dynamically ... otherwise there are errors getting the right element
+        		});
         	        	        
             // Update the nodes…
         		var node = svg.selectAll("g.node")
-        			.data(nodes, function(d) { return d.id || (d.id = ++i); });
+        			.data(nodes, function(d) { return d.id; });// || (d.id = ++i); });
         
         	// Enter any new nodes at the parent's previous position.
         		var nodeEnter = node.enter().append("g")
         			.attr("class", "node")
         			.attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
-        			.on("click", click);
+        			.on("click", function(d) {
+        				click(d, "mouseClickSelf", $that);
+        				update(d)});
+        			
         
            // Draw the KPI tile using SVG shapes
         			nodeEnter.append("rect")
@@ -233,18 +243,7 @@
           	 
             }
           
-          // Toggle children on click.
-          function click(d) {
-            if (d.children) {
-              d._children = d.children;
-              d.children = null;
-            } else {
-              d.children = d._children;
-              d._children = null;
-             }
-            update(d);
-          }
-          
+           // update(d);          
     };
    
   //  d3.select(self.frameElement).style("height", $container.height());
@@ -265,6 +264,31 @@
     	  return "M" + d.source.y + "," + d.source.x
     	      + "V" + d.target.x + "H" + d.target.y;
     	}
+    
+    // Toggle children on click.
+    function click(d, eventTextSelf, that) {
+  	// set text of selected node 
+		that.selectedNode(d.key);
+	// fire event that this change is also available via BIAL
+		that.firePropertiesChanged(["selectedNode"]);
+      if (d.nodeState && d.nodeState === "EXPANDED") {
+        d._children = d.children;
+        d.children = null;
+        if (eventTextSelf && eventTextSelf === "mouseClickSelf") {
+			// trigger Event on Hierarchy Collapse
+			that.fireEvent("onHCollapse");
+			//alert("Alert Hierarchy Collapse");
+			}
+      } else if (d.nodeState && d.nodeState === "COLLAPSED") {
+        d.children = d._children;
+        d._children = null;
+        if (eventTextSelf && eventTextSelf === "mouseClickSelf") {
+			// trigger Event on Hierarchy Expand
+			that.fireEvent("onHExpand");
+			//alert("Alert Hierarchy Expand");
+				}
+      	}
+    }
     
 
     sap.sample = sap.sample || {};

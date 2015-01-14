@@ -24,9 +24,32 @@
 			tooltip="Holds a reference to a result cell set"
 			visible="false"
 			group="DataBinding"/>
+		<property
+			id="selectedNode"
+			title="selectedNode"
+			type="String"
+			tooltip="Returns a JSON object of the selected node"
+			visible="false"/>
+		<property
+			id="onHExpand"
+			title="onHExpand"
+			type="ScriptText"
+			tooltip="Executes the expandNode BIAL script on click"
+			visible="false"
+			group="Events" />
+		<property
+			id="onHCollapse"
+			title="onHCollapse"
+			type="ScriptText"
+			tooltip="Executes the collapseNode BIAL script on click"
+			visible="false"
+			group="Events" />
 		<initialization>
 			<defaultValue property="WIDTH">400</defaultValue>
 			<defaultValue property="HEIGHT">400</defaultValue>
+			<defaultValue property="selectedNode">InitialNode</defaultValue>
+			<defaultValue property="onHExpand">this.expandHierarchyNode();</defaultValue>
+			<defaultValue property="onHCollapse">this.collapseHierarchyNode();</defaultValue>
 		</initialization>
 	</component>
 </sdkExtension>

@@ -29,6 +29,7 @@
             var memberLevel = member.level || 0,
                 levelDiff = memberLevel - lastLevel,
                 node = {
+            		"key": member.key,
                     "name": member.text,
                     "isLeaf": !isHierarchyNode(member),
                     "level": member.level,
