@@ -29,6 +29,7 @@
             var memberLevel = member.level || 0,
                 levelDiff = memberLevel - lastLevel,
                 node = {
+            		"key": member.key,
                     "name": member.text,
                     "isLeaf": !isHierarchyNode(member),
                     "level": member.level,
@@ -57,6 +58,30 @@
         return root;
     };
 
+    /**
+     * Finds the dimension containing a hierarchy node
+     */
+    MetadataToTreeConverter.prototype.findHierarchicalDimension = function(metadata) {
+        
+        var tempResult = "";
+
+		if (metadata) {
+			for(var i=0;i< metadata.dimensions.length;i++){
+				var dim =  metadata.dimensions[i];
+				// check if member of dim is a hierarchy dimension and then return dim name
+				if (!dim.hasOwnProperty("containsMeasures")) {
+					if (dim.members[0]) {
+						if (dim.members[0].type == "HIERARCHY_NODE") {
+							tempResult = dim.key;
+						}
+					}
+					
+				}
+			} // all dimensions have been traversed
+		} // check if parse of strMetadata was successful and this._metadata is filled correctly
+		
+		return tempResult;
+    }
 
     /**
      * Finds the first dimension that has a hierarchy node as its first member

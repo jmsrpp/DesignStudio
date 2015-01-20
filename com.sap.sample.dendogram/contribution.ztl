@@ -1,3 +1,25 @@
 class com.sap.sample.dendogram.Dendogram extends Component {
 
+	/* Returns the Key of the currently selected Tree Element. */
+	String getSelectedNodeKey() {*
+		return this.selectedNode;
+	*}
+	
+	/* Returns the Dimension Key containing the hierarchy of the datasource. */
+	String getHierarchyDimensionKey() {*
+		return this.dimHierarchy;
+	*}
+	
+	/* Expand the hierarchy */
+	@Visibility(private)
+	void expandHierarchyNode() {*
+	    this.getDataSource().expandNode(this.getHierarchyDimensionKey(), this.getSelectedNodeKey());
+	*}
+	
+	/* Collapse the hierarchy */
+	@Visibility(private)
+	void collapseHierarchyNode() {*
+		this.getDataSource().collapseNode(this.getHierarchyDimensionKey(), this.getSelectedNodeKey());
+	*}
+
 }
