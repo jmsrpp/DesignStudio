@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Design Studio SDK Extension Three JS Test
+Bundle-SymbolicName: com.sap.sample.three;singleton:=true
+Bundle-Version: 14.0.3
+Require-Bundle: com.sap.ip.bi.zen.rt.components.sdk.eclipse
+Bundle-Vendor: SAP
