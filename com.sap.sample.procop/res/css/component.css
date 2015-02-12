@@ -1,0 +1,58 @@
+.procop {
+
+}
+
+.node {
+  cursor: pointer;
+}
+
+.dimText {
+  fill: black;
+  font: 10px sans-serif;
+}
+
+.link {
+  fill: none;
+  stroke: black;
+  stroke-width: 1.5px;
+}
+
+.container {
+  fill: #ffffff;
+  stroke: #000000;
+}
+
+.traffic {
+	stroke: #000000;
+    stroke-width: 1px;
+}
+
+.drivers {
+	fill: #83D6FF;
+	stroke: #000000;
+}
+
+.kpi1 {
+	fill: #375A6B;
+	stroke: #000000;
+}
+
+.kpi1_text {
+	fill: white;
+	font: 10px sans-serif;
+}
+
+.driver_text {
+	fill: black;
+	font: 10px sans-serif;
+}
+
+.kpi2 {
+	fill: #5C96B2;
+	stroke: #000000;        			
+}
+
+.middim {
+	fill: #C1EAFF;
+	stroke: #000000;      			
+}

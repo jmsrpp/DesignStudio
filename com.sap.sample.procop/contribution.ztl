@@ -1,0 +1,92 @@
+class com.sap.sample.procop.Procop extends Component {
+
+/* Returns the Key of the currently selected Tree Element. */
+	String getSelectedNodeKey() {*
+		return this.selectedNode;
+	*}
+	
+	/* Returns the result set of the data source. */
+	String getSavedData() {*
+		return this.savedData;
+	*}
+	
+	/* Returns the Dimension Key containing the hierarchy of the datasource. */
+	String getHierarchyDimensionKey() {*
+		return this.dimHierarchy;
+	*}
+	
+	/* Returns the Key Figure holding the BEX exception */
+	String getExceptionKF() {*
+		return this.kfExceptionKey;
+	*}
+	
+	/* Returns Driver Dimension 1 */
+	String getDimDriverTop() {*
+		return this.dimDriverTop;
+	*}
+	
+	/* Returns Driver Dimension 2 */
+	String getDimDriverBottom() {*
+		return this.dimDriverBottom;
+	*}
+	
+	/* Returns Driver 1 member key */
+	String getDriver1Index() {*
+		return this.driver1Index;
+	*}
+	
+	/* Returns Driver 2 member key */
+	String getDriver2Index() {*
+		return this.driver2Index;
+	*}
+	
+	/* Returns conditional format value array */
+	String getConditionalFormatMultiDim() {*
+		return this.conditionalFormatMultiDim;
+	*}
+	
+	/* Expand the hierarchy */
+	/* @Visibility(private) */
+	void expandHierarchyNode() {*
+	    this.getDataSource().expandNode(this.getHierarchyDimensionKey(), this.getSelectedNodeKey());
+	*}
+	
+	/* Collapse the hierarchy */
+	/* @Visibility(private) */
+	void collapseHierarchyNode() {*
+		this.getDataSource().collapseNode(this.getHierarchyDimensionKey(), this.getSelectedNodeKey());
+	*}
+	
+	/* Return conditional formatting values in an array from BEX query */
+	void setTrafficLightValueArray() {*
+		
+		var condFormatStringCollection = this.getConditionalFormatMultiDim();
+		var conditionalFormatArray = [];
+		var conditionalFormatArrayFinal = [];
+		conditionalFormatArray = condFormatStringCollection.split(/([,])(?=[{])/);
+		for(var i=0;i<conditionalFormatArray.length;i++) {
+			var tmpResult = conditionalFormatArray[i];
+			if (tmpResult !== ",") {
+			conditionalFormatArrayFinal.push(tmpResult);
+			}
+			}
+			
+		var condFormatValueArray = [];	
+		this.finalCondForm = conditionalFormatArrayFinal[1];
+		
+		for(var i=0;i<conditionalFormatArrayFinal.length;i++) {
+			var trafficLightValue = this.getDataSource().getConditionalFormatValueExt(this.getExceptionKF(), conditionalFormatArrayFinal[i]); 
+			condFormatValueArray.push(trafficLightValue);
+		}
+		this.trafficLightArray = condFormatValueArray;
+	*}
+	
+	String getTrafficLightArray() {*
+		return this.trafficLightArray;
+	*}
+	
+		String getFinalCondForm() {*
+		return this.finalCondForm;
+	*}
+	
+}

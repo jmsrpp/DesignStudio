@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdkExtension
+	xmlns="http://www.sap.com/bi/zen/sdk"
+	id="com.sap.sample.procop"
+	title="Design Studio SDK Extension PROCOP Sample"
+	version="15.0"
+	vendor="SAP">
+	<component
+		id="Procop"
+		title="Procop Component"
+		icon="res/icon.png"
+		handlerType="div"
+		databound="true"> <!-- This is set so that a data source can be assigned -->
+		<jsInclude>res/js/d3.js</jsInclude>
+		<jsInclude>res/js/metadata-tree-converter.js</jsInclude>
+		<jsInclude>res/js/component.js</jsInclude>
+		<cssInclude>res/css/component.css</cssInclude>
+		<!-- This implicitly sets a metadata property -->
+		<property
+			id="dataResultCellSet"
+			title="ResultCellSet"
+			type="ResultCellSet"
+			tooltip="Holds a reference to a result cell set"
+			visible="false"
+			group="DataBinding"/>
+		<property
+			id="dataResultSet"
+			title="ResultSet"
+			type="ResultSet"
+			tooltip="Holds a reference to a result set"
+			visible="false"
+			group="DataBinding"/>
+		<property
+			id="dataResultCellListKF1"
+			title="Key Figure 1"
+			type="ResultCellList"
+			tooltip="Defines the measure for KF1"
+			visible="true"
+			group="DataBinding"/>
+		<property
+			id="kfException"
+			title="Exception Key Figure Text"
+			type="String"
+			tooltip="The name of the measure to use for the BEX exception traffic lighting"
+			visible="true"/>
+		<property
+			id="kfExceptionKey"
+			title="Stores the key value of the measure used for BEX exception traffic lighting"
+			type="String"
+			tooltip="Stores the key value of the measure used for BEX exception traffic lighting"
+			visible="false"/>
+		<property
+			id="dimDriverTop"
+			title="Driver Dimension Top"
+			type="String"
+			tooltip="Key value of the cost driver / unit of measure dimension for the top of the KPI panel"
+			visible="true"/>
+		<property
+			id="dimDriverBottom"
+			title="Driver Dimension Bottom"
+			type="String"
+			tooltip="Key value of the cost driver / unit of measure dimension for the bottom of the KPI panel"
+			visible="true"/>
+			<property
+			id="dimHierarchy"
+			title="Hierarchy Dimension"
+			type="String"
+			tooltip="Defines the dimension hierarchy to be used in the dendogram"
+			visible="false"/>
+		<property
+			id="selectedNode"
+			title="selectedNode"
+			type="String"
+			tooltip="Returns a JSON object of the selected node"
+			visible="false"/>
+		<property
+			id="driver1Index"
+			title="driver1Index"
+			type="String"
+			tooltip="Holds the index in the dimensions array for the first cost driver dimension for use in conditional formatting"
+			visible="false"/>
+		<property
+			id="driver2Index"
+			title="driver2Index"
+			type="String"
+			tooltip="Holds the index in the dimensions array for the second cost driver dimension for use in conditional formatting"
+			visible="false"/>
+		<property
+			id="conditionalFormatMultiDim"
+			title="conditionalFormatMultiDim"
+			type="String"
+			tooltip="Holds the conditional formatting JSON object array"
+			visible="false"/>
+		<property
+			id="trafficLightArray"
+			title="trafficLightValue"
+			type="String"
+			tooltip="Holds the numeric value of the conditional formatting"
+			visible="false"/>
+		<property
+			id="finalCondForm"
+			title="finalCondForm"
+			type="String"
+			tooltip="finalCondForm"
+			visible="false"/>
+		<property
+			id="onHExpand"
+			title="on Hierarchy Expand"
+			type="ScriptText"
+			tooltip="Executes the expandNode BIAL script on click"
+			visible="false"
+			group="Events" />
+		<property
+			id="onHCollapse"
+			title="on Hierarchy Collapse"
+			type="ScriptText"
+			tooltip="Executes the collapseNode BIAL script on click"
+			visible="false"
+			group="Events" />
+		<property
+			id="setTrafficLightValueArray"
+			title="set Traffic Light Value Array"
+			type="ScriptText"
+			tooltip="Executes the getConditionalFormatExt BIAL script"
+			visible="false"
+			group="Events" />
+		<initialization>
+			<defaultValue property="WIDTH">400</defaultValue>
+			<defaultValue property="HEIGHT">400</defaultValue>
+			<defaultValue property="selectedNode">InitialNode</defaultValue>
+			<defaultValue property="onHExpand">this.expandHierarchyNode();</defaultValue>
+			<defaultValue property="onHCollapse">this.collapseHierarchyNode();</defaultValue>
+			<defaultValue property="setTrafficLightValueArray">this.setTrafficLightValueArray();</defaultValue>
+		</initialization>
+	</component>
+</sdkExtension>
