@@ -151,7 +151,7 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
     };
 
     this.afterUpdate = function() {
-    	if (!isDataInit) {
+    	if (isDataInit !== 1) {
     		that.dataInit();	
     	}
     	root = metadataToTreeConverter.convert(savedData, that);
@@ -206,18 +206,16 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
             		//insert BIAL property here for member key
             		conditionalFormatMultiDimNode[cFDriverTop] = savedData.dimensions[dimDriverTopN].members[driverTopMemberIndex].key;
             	    conditionalFormatMultiDimNode[cFDriverBottom] = savedData.dimensions[dimDriverBottomN].members[driverBottomMemberIndex].key;
-            		/* Stringify the results into JSON format*/
-        			//conditionalFormatMultiDimNode = JSON.stringify(conditionalFormatMultiDimNode);
-        			conditionalFormatMultiDimArray.push(conditionalFormatMultiDimNode);
+            	    console.log("debug");
+        			conditionalFormatMultiDimArray.push(JSON.stringify(conditionalFormatMultiDimNode));
         	});
-        
+        	
         	console.log("debug");
         	that.conditionalFormatMultiDim(conditionalFormatMultiDimArray);
         	isDataInit = 1;
         	that.firePropertiesChangedAndEvent(["dimHierarchy", "kfExceptionKey","conditionalFormatMultiDim"], "setTrafficLightValueArray");
-    }
-    	that.afterUpdate();
-    };
+    		}
+    	};
     
     this.update = function(source) {
     		
@@ -510,7 +508,7 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
         	that.fireEvent("onHCollapse");
         	d_root = d;
         	h_fired = 1;
-        	isDataInit = null;
+        	isDataInit = 0;
 			}
       } else if (d.nodeState && d.nodeState === "COLLAPSED") {
         d.children = d._children;
@@ -520,7 +518,7 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
         	that.fireEvent("onHExpand");
         	d_root = d;
         	h_fired = 1;
-        	isDataInit = null;
+        	isDataInit = 0;
 				}
       	}
       that.afterUpdate();

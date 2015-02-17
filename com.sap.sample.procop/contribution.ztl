@@ -41,7 +41,7 @@ class com.sap.sample.procop.Procop extends Component {
 	*}
 	
 	/* Returns conditional format value array */
-	String getConditionalFormatMultiDim() {*
+	StringArray getConditionalFormatMultiDim() {*
 		return this.conditionalFormatMultiDim;
 	*}
 	
@@ -59,23 +59,22 @@ class com.sap.sample.procop.Procop extends Component {
 	
 	/* Return conditional formatting values in an array from BEX query */
 	void setTrafficLightValueArray() {*
+		var condFormatArray = this.conditionalFormatMultiDim,
+			condFormatValueArray = [],
+			cFHier = this.dimHierarchy,
+   			cFDriverTop = this.dimDriverTop,
+       		cFDriverBottom = this.dimDriverBottom;
+       
+       //debug for BIAL getter		
+       	this.finalCondForm = condFormatArray[1];
 		
-		var condFormatStringCollection = this.getConditionalFormatMultiDim();
-		var conditionalFormatArray = [];
-		var conditionalFormatArrayFinal = [];
-		conditionalFormatArray = condFormatStringCollection.split(/([,])(?=[{])/);
-		for(var i=0;i<conditionalFormatArray.length;i++) {
-			var tmpResult = conditionalFormatArray[i];
-			if (tmpResult !== ",") {
-			conditionalFormatArrayFinal.push(tmpResult);
-			}
-			}
-			
-		var condFormatValueArray = [];	
-		this.finalCondForm = conditionalFormatArrayFinal[1];
-		
-		for(var i=0;i<conditionalFormatArrayFinal.length;i++) {
-			var trafficLightValue = this.getDataSource().getConditionalFormatValueExt(this.getExceptionKF(), conditionalFormatArrayFinal[i]); 
+		for(var i=0;i<condFormatArray.length;i++) {
+			var conditionalFormatMultiDimNode = condFormatArray[i];
+			var trafficLightValue = this.getDataSource().getConditionalFormatValueExt(this.getExceptionKF(), {
+			"SBOP2_D05": "KIDS_CARS",
+			"0UNIT": "PC",
+			"0CURRENCY": "EUR"
+			}); 
 			condFormatValueArray.push(trafficLightValue);
 		}
 		this.trafficLightArray = condFormatValueArray;

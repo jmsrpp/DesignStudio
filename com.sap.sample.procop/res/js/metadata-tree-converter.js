@@ -209,13 +209,13 @@
 	};
 	
 	function getTrafficColor(trafficLight){
-		if (trafficLight === "1" || trafficLight === "2" || trafficLight === "3") {
+		if (trafficLight == 1 || trafficLight == 2 || trafficLight == 3) {
 			return "green";
 		}
-		else if (trafficLight === "4" || trafficLight === "5" || trafficLight === "6") {
+		else if (trafficLight == 4 || trafficLight == 5 || trafficLight == 6) {
 			return "yellow";
 		}
-		else if (trafficLight === "7" || trafficLight === "8" || trafficLight === "9") {
+		else if (trafficLight == 7 || trafficLight == 8 || trafficLight == 9) {
 			return "red";
 		}
 		else {
