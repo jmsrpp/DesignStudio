@@ -151,7 +151,7 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
     };
 
     this.afterUpdate = function() {
-    	if (driver1 && driver2) {
+    	if (savedData && driver1 && driver2) {
     	//Find the index by key value of the Top and Bottom Driver dimensions specified at design time
     	driver1Index = metadataToTreeConverter.dimensionIndexByKey(driver1, savedData);
     	that.driver1Index(driver1Index);
@@ -211,10 +211,10 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
             		conditionalFormatMultiDimNode[cFDriverTop] = savedData.dimensions[dimDriverTopN].members[driverTopMemberIndex].key;
             	    conditionalFormatMultiDimNode[cFDriverBottom] = savedData.dimensions[dimDriverBottomN].members[driverBottomMemberIndex].key;
         			conditionalFormatMultiDimArray.push(JSON.stringify(conditionalFormatMultiDimNode));
-        			console.log("debug");
+        			//console.log("debug");
         	});
         	
-        	console.log("debug");
+        	//console.log("debug");
         	that.conditionalFormatMultiDim(conditionalFormatMultiDimArray);
         	that.firePropertiesChangedAndEvent(["dimHierarchy", "kfExceptionKey","conditionalFormatMultiDim"], "setTrafficLightValueArray");
         	isDataInit = 1;
