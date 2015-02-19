@@ -66,7 +66,7 @@
         		//that.firePropertiesChangedAndEvent(["driver1Key", "driver2Key", "currentMember", "conditionalFormatMultiDim"], "setTrafficLight");
        
         	//that.fireEvent("setTrafficLight");
-        	var trafficLightArray = that.trafficLightArray();
+        	var trafficLightArray = JSON.parse(that.trafficLightArray());
         	var trafficLightValue = trafficLightArray[i];
         	console.log("debug");
         	var trafficLightColor = getTrafficColor(trafficLightValue);
@@ -209,13 +209,13 @@
 	};
 	
 	function getTrafficColor(trafficLight){
-		if (trafficLight == 1 || trafficLight == 2 || trafficLight == 3) {
+		if (trafficLight === "1" || trafficLight === "2" || trafficLight === "3") {
 			return "green";
 		}
-		else if (trafficLight == 4 || trafficLight == 5 || trafficLight == 6) {
+		else if (trafficLight === "4" || trafficLight === "5" || trafficLight === "6") {
 			return "yellow";
 		}
-		else if (trafficLight == 7 || trafficLight == 8 || trafficLight == 9) {
+		else if (trafficLight === "7" || trafficLight === "8" || trafficLight === "9") {
 			return "red";
 		}
 		else {

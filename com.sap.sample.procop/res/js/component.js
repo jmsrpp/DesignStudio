@@ -14,7 +14,7 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
     	savedData = null,
     	selectedNode = null,
     	nodeName = null,
-    	conditionalFormatMultiDim = {},
+    	conditionalFormatMultiDim = [],
     	isDataInit = null,
     	trafficLightArray = [],
         metadataToTreeConverter,
@@ -151,9 +151,17 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
     };
 
     this.afterUpdate = function() {
+    	if (driver1 && driver2) {
+    	//Find the index by key value of the Top and Bottom Driver dimensions specified at design time
+    	driver1Index = metadataToTreeConverter.dimensionIndexByKey(driver1, savedData);
+    	that.driver1Index(driver1Index);
+    	driver2Index = metadataToTreeConverter.dimensionIndexByKey(driver2, savedData);
+    	that.driver2Index(driver2Index);
+    	}
     	if (isDataInit !== 1) {
     		that.dataInit();	
     	}
+    	if (isDataInit == 1) {
     	root = metadataToTreeConverter.convert(savedData, that);
         if (selectedNode === "InitialNode") {
     		that.update(root);
@@ -169,20 +177,16 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
         	g_node.remove();
         	that.update(d_root);
         	}
+    	}
     	
     };
     
     this.dataInit = function() {
-    	if (savedData && kf1 && kfException && driver1 && driver2) {
+    	if (savedData && kf1 && kfException) {
         	dimValue = metadataToTreeConverter.findHierarchicalDimension(savedData);
             that.dimHierarchy(dimValue);
             kfExceptionKey = metadataToTreeConverter.measureKeyByText(kfException, savedData);
     		that.kfExceptionKey(kfExceptionKey);
-    		//Find the index by key value of the Top and Bottom Driver dimensions specified at design time
-        	driver1Index = metadataToTreeConverter.dimensionIndexByKey(driver1, savedData);
-        	that.driver1Index(driver1Index);
-        	driver2Index = metadataToTreeConverter.dimensionIndexByKey(driver2, savedData);
-        	that.driver2Index(driver2Index);
         	
         	var dimHierarchyIndex = metadataToTreeConverter.dimensionIndexByKey(dimHierarchy, savedData);
         	var members = savedData.dimensions[dimHierarchyIndex].members;
@@ -206,14 +210,14 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.procop.Procop", function
             		//insert BIAL property here for member key
             		conditionalFormatMultiDimNode[cFDriverTop] = savedData.dimensions[dimDriverTopN].members[driverTopMemberIndex].key;
             	    conditionalFormatMultiDimNode[cFDriverBottom] = savedData.dimensions[dimDriverBottomN].members[driverBottomMemberIndex].key;
-            	    console.log("debug");
         			conditionalFormatMultiDimArray.push(JSON.stringify(conditionalFormatMultiDimNode));
+        			console.log("debug");
         	});
         	
         	console.log("debug");
         	that.conditionalFormatMultiDim(conditionalFormatMultiDimArray);
-        	isDataInit = 1;
         	that.firePropertiesChangedAndEvent(["dimHierarchy", "kfExceptionKey","conditionalFormatMultiDim"], "setTrafficLightValueArray");
+        	isDataInit = 1;
     		}
     	};
     

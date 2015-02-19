@@ -41,7 +41,7 @@ class com.sap.sample.procop.Procop extends Component {
 	*}
 	
 	/* Returns conditional format value array */
-	StringArray getConditionalFormatMultiDim() {*
+	Array getConditionalFormatMultiDim() {*
 		return this.conditionalFormatMultiDim;
 	*}
 	
@@ -59,32 +59,48 @@ class com.sap.sample.procop.Procop extends Component {
 	
 	/* Return conditional formatting values in an array from BEX query */
 	void setTrafficLightValueArray() {*
-		var condFormatArray = this.conditionalFormatMultiDim,
-			condFormatValueArray = [],
-			cFHier = this.dimHierarchy,
-   			cFDriverTop = this.dimDriverTop,
-       		cFDriverBottom = this.dimDriverBottom;
+			var that = this;
+			
+			try{  
+  			if(DEBUG) { DEBUG.openZtl(that)}; 
+  			var l = {}; 
+			
+			l.condFormatStringCollection = this.conditionalFormatMultiDim,
+			l.condFormatArray = [],
+			l.conditionalFormatArrayFinal = [],
+			l.condFormatValueArray = [];
+			if(DEBUG) { DEBUG.inspectZtl(that, l)};
+			l.condFormatArray = l.condFormatStringCollection.split(/([,])(?=[{])/);
+			for(var i=0;i<l.condFormatArray.length;i++) {
+			var tmpResult = l.condFormatArray[i];
+			if (tmpResult !== ",") {
+			l.conditionalFormatArrayFinal.push(tmpResult);
+				}
+			}
        
-       //debug for BIAL getter		
-       	this.finalCondForm = condFormatArray[1];
+      		 //debug for BIAL getter		
+       		this.finalCondForm = l.conditionalFormatArrayFinal[1];
+			
+			for(var i=0;i<l.conditionalFormatArrayFinal.length;i++) {
+			var conditionalFormatMultiDimNode = JSON.parse(l.conditionalFormatArrayFinal[i]);	
+			var trafficLightValue = this.getDataSource().getConditionalFormatValueExt(this.getExceptionKF(), conditionalFormatMultiDimNode); 
+			l.condFormatValueArray.push(trafficLightValue);
+			}
+			if(DEBUG) { DEBUG.inspectZtl(that, l)};
+			if(DEBUG) { DEBUG.exitZtl(that, l)};
+			 }
+			catch (e) {
+  			if(DEBUG) { DEBUG.processZtlException(that, l, e)};throw e;
+  				}	 
 		
-		for(var i=0;i<condFormatArray.length;i++) {
-			var conditionalFormatMultiDimNode = condFormatArray[i];
-			var trafficLightValue = this.getDataSource().getConditionalFormatValueExt(this.getExceptionKF(), {
-			"SBOP2_D05": "KIDS_CARS",
-			"0UNIT": "PC",
-			"0CURRENCY": "EUR"
-			}); 
-			condFormatValueArray.push(trafficLightValue);
-		}
-		this.trafficLightArray = condFormatValueArray;
+		this.trafficLightArray = JSON.stringify(l.condFormatValueArray);
 	*}
 	
 	String getTrafficLightArray() {*
 		return this.trafficLightArray;
 	*}
 	
-		String getFinalCondForm() {*
+	String getFinalCondForm() {*
 		return this.finalCondForm;
 	*}
 	

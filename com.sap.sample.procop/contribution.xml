@@ -93,7 +93,7 @@
 			visible="false"/>
 		<property
 			id="trafficLightArray"
-			title="trafficLightValue"
+			title="trafficLightArray"
 			type="String"
 			tooltip="Holds the numeric value of the conditional formatting"
 			visible="false"/>
