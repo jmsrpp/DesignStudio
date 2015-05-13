@@ -1,0 +1,27 @@
+class com.sap.sample.tagcloud.Tagcloud extends Component {
+
+/* Returns the Key of the currently selected Tree Element. */
+	String getSelectedNodeKey() {*
+		return this.selectedNode;
+	*}
+	
+/* Returns the specified value for Tag Rotation */
+	String getTagRotation() {*
+		return this.tagRotation;
+	*}
+
+/* Sets the value for Tag Rotation */
+	void setTagRotation(String newRotation) {*
+		this.tagRotation = newRotation;
+	*}
+	
+/* Returns the specified value for Tag Font */
+	String getTagFont() {*
+		return this.tagFont;
+	*}
+
+/* Sets the value for Tag Font */
+	void setTagFont(String newFont) {*
+		this.tagFont = newFont;
+	*}
+}

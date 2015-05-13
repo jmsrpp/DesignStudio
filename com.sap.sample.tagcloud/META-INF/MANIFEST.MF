@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Design Studio SDK Extension Tag Cloud
+Bundle-SymbolicName: com.sap.sample.tagcloud;singleton:=true
+Bundle-Version: 15.0.2.qualifier
+Require-Bundle: com.sap.ip.bi.zen.rt.components.sdk.eclipse
+Bundle-Vendor: SAP
