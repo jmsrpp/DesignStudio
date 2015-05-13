@@ -126,15 +126,15 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.tagcloud.Tagcloud", func
         	d.id = d.key; // set the ID dynamically ... otherwise there are errors getting the right element
         });
         
-        var svgWidth = that.$().innerWidth()*0.95;
-        var svgHeight = that.$().innerHeight()*0.95;
+        var svgWidth = that.$().innerWidth();
+        var svgHeight = that.$().innerHeight();
         
     	var tagNodes = svg.attr("width", svgWidth)
     	.attr("height", svgHeight);
     		
     	var tagGroup = tagNodes.select("g");
         if(tagGroup.empty()) tagGroup = svg.append("g");
-        tagGroup.selectAll("text").remove();
+        //tagGroup.selectAll("text").remove();
         
     	var tagEnter = tagGroup.attr("transform", "translate(" + (svgWidth/2) + "," + (svgHeight/2) + ")")
     	.selectAll("text")
