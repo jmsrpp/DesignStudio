@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdkExtension
+	xmlns="http://www.sap.com/bi/zen/sdk"
+	id="com.sap.sample.horizonchart"
+	title="Horizon Chart"
+	version="15.0"
+	vendor="SAP">
+	<component
+		id="horizonChart"
+		title="Horizon Chart"
+		icon="res/HorizonChart.png"
+		handlerType="div"
+		group="CustomComponents"
+		databound="true"> <!-- This is set so that a data source can be assigned -->
+		<stdInclude kind="d3"/>
+		<jsInclude>res/js/horizon.js</jsInclude>
+		<jsInclude>res/js/HorizonChart.js</jsInclude>
+		<cssInclude>res/css/HorizonChart.css</cssInclude>
+		<!-- This implicitly sets a metadata property -->
+		<property
+			id="savedData"
+			title="Complete Data Source Result Set"
+			type="ResultSet"
+			tooltip="Holds a reference to a result set"
+			visible="false"
+			group="DataBinding"/>
+		<property
+			id="horizonMeasure"
+			title="Horizon Measure"
+			type="ResultCellList"
+			tooltip="Measure to plot on horizon chart"
+			visible="true"
+			group="DataBinding"/>
+		<property
+			id="bands"
+			title="Bands"
+			type="int"
+			tooltip="Integer value between 1-9 to define number of bands in horizon chart"
+			visible="true"
+			group="Display"
+			>
+			<possibleValue>1</possibleValue>
+			<possibleValue>2</possibleValue>
+			<possibleValue>3</possibleValue>
+			<possibleValue>4</possibleValue>
+			<possibleValue>5</possibleValue>
+			<possibleValue>6</possibleValue>
+			<possibleValue>7</possibleValue>
+			<possibleValue>8</possibleValue>
+			<possibleValue>9</possibleValue>
+		</property>
+		<property
+			id="mode"
+			title="Mode"
+			type="String"
+			tooltip="Set horizon chart to offset or mirror positive and negative values"
+			visible="true"
+			group="Display"
+			>
+			<possibleValue>offset</possibleValue>
+			<possibleValue>mirror</possibleValue>
+		</property>
+		<property
+			id="selectedNode"
+			title="selectedNode"
+			type="String"
+			tooltip="Returns a JSON object of the selected node"
+			visible="false"/>
+		<property
+			id="positiveColor1"
+			title="Positive Color 1"
+			type="String"
+			tooltip="Starting color for positive value range"
+			visible="true"
+			group="Display"/>
+		<property
+			id="positiveColor2"
+			title="Positive Color 2"
+			type="String"
+			tooltip="Ending color for positive value range"
+			visible="true"
+			group="Display"/>
+		<property
+			id="negativeColor1"
+			title="Negative Color 1"
+			type="String"
+			tooltip="Starting color for negative value range"
+			visible="true"
+			group="Display"/>
+		<property
+			id="negativeColor2"
+			title="Negative Color 2"
+			type="String"
+			tooltip="Ending color for negative value range"
+			visible="true"
+			group="Display"/>
+		<property 
+			id="onclick" 
+			type="ScriptText" 
+			title="On Click" 
+			group="Events" />
+		<initialization>
+			<defaultValue property="WIDTH">400</defaultValue>
+			<defaultValue property="HEIGHT">400</defaultValue>
+			<defaultValue property="selectedNode">InitialNode</defaultValue>
+			<defaultValue property="bands">1</defaultValue>
+			<defaultValue property="mode">mirror</defaultValue>
+			<defaultValue property="positiveColor1">#BAE4B3</defaultValue>
+			<defaultValue property="positiveColor2">#006D2C</defaultValue>
+			<defaultValue property="negativeColor1">#08519C</defaultValue>
+			<defaultValue property="negativeColor2">#BDD7E7</defaultValue>
+		</initialization>
+	</component>
+</sdkExtension>

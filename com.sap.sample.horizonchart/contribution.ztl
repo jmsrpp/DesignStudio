@@ -1,0 +1,13 @@
+
+/**
+ * Class for Horizon Chart
+ */
+
+class com.sap.sample.horizonchart.horizonChart extends Component {
+
+/* Returns the Key of the currently selected Tree Element. */
+	String getSelectedNodeKey() {*
+		return this.selectedNode;
+	*}
+	
+}
