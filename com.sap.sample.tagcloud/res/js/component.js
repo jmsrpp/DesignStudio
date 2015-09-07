@@ -150,6 +150,24 @@ sap.designstudio.sdk.Component.subclass("com.sap.sample.tagcloud.Tagcloud", func
         })
         .text(function(d) { return d.text; })
         .on("click", function(d) { click(d); });
+        
+        //Transition existing words
+        var cloudTransition = cloud
+            .transition()
+                .duration(600)
+                .style("font-size", function(d) { return d.size + "px"; })
+                .attr("transform", function(d) {
+                    return "translate(" + [d.x, d.y] + ")rotate(" + d.rotate + ")";
+                })
+                .style("fill-opacity", 1);
+        
+        //Exit departing or filtered words
+        var cloudExit = cloud.exit()
+        .transition()
+            .duration(200)
+            .style('fill-opacity', 1e-6)
+            .attr('font-size', 1)
+            .remove();
     	
     	this._poller = window.setTimeout(function(){that.detectSize(that)},that._pollInterval);
     	
